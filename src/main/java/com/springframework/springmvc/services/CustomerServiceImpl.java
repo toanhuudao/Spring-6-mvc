@@ -1,5 +1,6 @@
 package com.springframework.springmvc.services;
 
+import com.springframework.springmvc.models.Beer;
 import com.springframework.springmvc.models.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,18 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomerById(UUID id){
         return customersMap.get(id);
+    }
+
+    @Override
+    public Customer saveNewCustomer(Customer customer) {
+        Customer newCustomer = Customer.builder()
+                .id(UUID.randomUUID())
+                .version(customer.getVersion())
+                .customerName(customer.getCustomerName())
+                .createdDate(LocalDateTime.now())
+                .build();
+
+        customersMap.put(newCustomer.getId(),newCustomer);
+        return newCustomer;
     }
 }

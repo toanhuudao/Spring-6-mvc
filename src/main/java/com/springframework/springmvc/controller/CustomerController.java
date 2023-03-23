@@ -1,13 +1,14 @@
 package com.springframework.springmvc.controller;
 
+import com.springframework.springmvc.models.Beer;
 import com.springframework.springmvc.models.Customer;
 import com.springframework.springmvc.services.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,5 +29,14 @@ public class CustomerController {
     Customer getCustomerById(@PathVariable("customerId") UUID customerId){
         log.debug("Get customer by Id - in controller");
         return customerService.getCustomerById(customerId);
+    }
+
+    @PostMapping
+    public ResponseEntity handlePost(Customer customer){
+        Customer saveCustomer = customerService.saveNewCustomer(customer);
+        log.debug("handle Post - in controller");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location","/api/v1/customer/"+ saveCustomer.getId().toString());
+        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 }
