@@ -2,7 +2,6 @@ package com.springframework.springmvc.services;
 
 import com.springframework.springmvc.models.Beer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -75,5 +74,20 @@ public class BeerServiceImpl implements BeerService {
 
         beerMap.put(saveBeer.getId(),saveBeer);
         return saveBeer;
+    }
+
+    @Override
+    public Beer updateById(UUID id, Beer beer) {
+
+        Beer existBeer = beerMap.get(id);
+        existBeer.setBeerName(beer.getBeerName());
+        existBeer.setPrice(beer.getPrice());
+        beerMap.put(existBeer.getId(),existBeer);
+        return existBeer;
+    }
+
+    @Override
+    public void deletedById(UUID beerId) {
+        beerMap.remove(beerId);
     }
 }

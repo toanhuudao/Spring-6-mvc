@@ -38,4 +38,21 @@ public class BeerController {
         headers.add("Location","/api/v1/beer/"+ saveBeer.getId().toString());
         return new ResponseEntity(headers,HttpStatus.CREATED);
     }
+
+    @PutMapping("/{beerId}")
+    public ResponseEntity updateById(@PathVariable("beerId") UUID beerId, @RequestBody Beer beer){
+        Beer saveBeer = beerService.updateById(beerId,beer);
+        log.debug("handle Post - in controller");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location","/api/v1/beer/"+ saveBeer.getId().toString());
+        return new ResponseEntity(headers,HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{beerId}")
+    public ResponseEntity deleteById(@PathVariable("beerId") UUID beerId){
+       beerService.deletedById(beerId);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity(headers,HttpStatus.NO_CONTENT);
+    }
 }

@@ -39,4 +39,13 @@ public class CustomerController {
         headers.add("Location","/api/v1/customer/"+ saveCustomer.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{customerId}")
+    public ResponseEntity updateById(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer){
+        Customer saveBeer = customerService.updateById(customerId,customer);
+        log.debug("handle Put - in controller");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location","/api/v1/customer/"+ saveBeer.getId().toString());
+        return new ResponseEntity(headers,HttpStatus.OK);
+    }
 }
