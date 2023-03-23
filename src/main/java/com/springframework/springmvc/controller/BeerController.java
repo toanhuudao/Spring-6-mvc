@@ -4,10 +4,7 @@ import com.springframework.springmvc.models.Beer;
 import com.springframework.springmvc.services.BeerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,5 +27,9 @@ public class BeerController {
         return beerService.getBeerById(beerId);
     }
 
-
+    @PostMapping
+    Beer handlePost(Beer beer){
+        log.debug("handle Post - in controller");
+        return beerService.saveNewBeer(beer);
+    }
 }
