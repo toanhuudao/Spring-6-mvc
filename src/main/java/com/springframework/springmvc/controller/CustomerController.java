@@ -1,8 +1,6 @@
 package com.springframework.springmvc.controller;
 
-import com.springframework.springmvc.models.Beer;
 import com.springframework.springmvc.models.Customer;
-import com.springframework.springmvc.services.BeerService;
 import com.springframework.springmvc.services.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +15,7 @@ import java.util.UUID;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/beer")
+@RequestMapping("/api/v1/customer")
 public class CustomerController {
     private final CustomerService customerService;
 
